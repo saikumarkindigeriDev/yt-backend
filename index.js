@@ -5,7 +5,7 @@ const mysql=require('mysql2')
 const cors=require("cors") 
 
 const jwt = require('jsonwebtoken');
-const bcrypt=require('bcrypt')
+const bcrypt=require('bcryptjs')
 
 const app=express() 
 
@@ -91,8 +91,11 @@ app.post('/register', async(req, res) => {
     console.log(data)
     const token = jwt.sign({ userId: data.id, username: data.username }, 'your_secret_key', { expiresIn: '24h' });
     if (data) {
+
+
+      return res.json("hi")
         
-        const isPasswordMatched=bcrypt.compare(password,data.password) 
+       /* const isPasswordMatched=await bcrypt.compare(password,data.password) 
         if (isPasswordMatched){
             console.log("Password Matched")
 
@@ -107,7 +110,7 @@ app.post('/register', async(req, res) => {
             return res.json("Password didn't Matched")
            
         }
-     
+     */
        
       
         }else{
@@ -118,7 +121,7 @@ app.post('/register', async(req, res) => {
 
 })
 
-const PORT = process.env.PORT || 4000
+const PORT = process.env.PORT || 9000
 
 app.listen(PORT, () => {
     console.log("Server is running....")
