@@ -111,6 +111,7 @@ app.post('/register', async(req, res) => {
         
           const token = jwt.sign({ userId: data.id, username: data.username }, 'your_secret_key', { expiresIn: '24h' });
 console.log({token})
+         res.json({Status:"Success"})
           return res.status(200).json({token})
         }else{
           console.log("Password Didn't Match")
