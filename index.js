@@ -55,12 +55,12 @@ app.post('/register', async(req, res) => {
     pool.query(checkUserSql,value, (err, results) => {
       if (err) {
         console.error('Error checking user existence:', err);
-        res.status(500).json({ error: 'Internal Server Error' });
+        res.status(500).json( 'Internal Server Error' );
       } else {
         if (results.length > 0) {
           console.log('User already registered')
           
-          res.status(409).json({ error: 'User already registered' });
+          res.status(409).json('User already registered' );
         } else {
           
           const insertUserSql = 'INSERT INTO reusers (username, email, password) VALUES (?, ?,?)';
@@ -69,10 +69,10 @@ app.post('/register', async(req, res) => {
           pool.query(insertUserSql, insertUserValues, (err, results) => {
             if (err) {
               console.error('Error inserting user:', err);
-              res.status(500).json({ error: 'Internal Server Error' });
+              res.status(500).json('Internal Server Error' );
             } else {
               console.log('Registered successfully');
-              res.status(200).json({ message: 'Registered successfully' });
+              res.status(200).json( 'Registered successfully' );
             }
           });
         }
@@ -103,19 +103,18 @@ app.post('/register', async(req, res) => {
        bcrypt.compare(password,results[0].password,(error,response)=>{
         if (error){
           console.log("Failed")
-          return res.json({Error:"Failed"})
+          return res.json("Failed")
         }
         
         if (response){
           const data = results;
         
           const token = jwt.sign({ userId: data.id, username: data.username }, 'your_secret_key', { expiresIn: '24h' });
-console.log({token})
-         res.json({Status:"Success"})
-          return res.status(200).json({token})
+      console.log({token})
+     return res.json({ Status: 'Success', token });
         }else{
           console.log("Password Didn't Match")
-          return res.json({Error:"Password Didn't Match"})
+          return res.json("Password Didn't Match")
         }
 
     
