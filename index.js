@@ -11,24 +11,25 @@ const app=express()
 
 app.use(cors());
 
-//require('dotenv').config()
+require('dotenv').config()
 
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 
 
 const pool = mysql.createPool({
-  /*  host: process.env.DB_HOST, 
+    host: process.env.DB_HOST, 
     user: process.env.DB_USERNAME, 
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DBNAME,
     waitForConnections: true,
     connectionLimit: 10,
-    queueLimit: 0 */
-    host:'localhost',
+    queueLimit: 0 
+
+    /* host:'localhost',
     user:'root', 
     password:'',
-    database:'youtubedb'
+    database:'youtubedb' */
 });
 
 pool.getConnection((err, conn) => {
@@ -130,8 +131,8 @@ console.log({token})
 
 })
 
-const PORT = /*process.env.PORT ||  6000*/
+const PORT = process.env.PORT ||  9000
 
-app.listen(9000, () => {
+app.listen(PORT, () => {
     console.log("Server is running....")
 })
