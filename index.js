@@ -100,7 +100,7 @@ app.post('/register', async(req, res) => {
 
     
         
-       bcrypt.compare(password,results[0].password,(errpr,response)=>{
+       bcrypt.compare(password,results[0].password,(error,response)=>{
         if (error){
           console.log("Failed")
           return res.json({Error:"Failed"})
